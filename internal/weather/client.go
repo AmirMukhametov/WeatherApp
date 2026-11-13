@@ -9,7 +9,7 @@ import (
 
 func Fetch() {
 	apiKey := config.GetApiKey()
-	resp, err := http.Get("http://api.openweathermap.org/geo/1.0/direct?q=Moscow&limit=5&appid=" + apiKey)
+	resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=" + apiKey + "&units=metric&lang=ru")
 	if err != nil {
 		fmt.Println("Fetch error", err)
 		return
