@@ -5,17 +5,31 @@ import (
 	"encoding/json"
 )
 
-// type User struct {
-//     Name string `json:"name"`
-//     Age  int    `json:"age"`
-// }
+type WeatherResponse struct {
+	Weather []struct {
+		Main string `json:"main"`
+		Description string `json:"description"`
+	} `json:"weather"`
+
+	Main struct {
+		Temp float64 `json:"temp"`
+		Humidity int `json:"humidity"`
+	} `json:"main"`
+
+	Name string `json:"name"`
+}
+
 
 func ParseWeather(res []byte) {
-	var data string
-    err := json.Unmarshal(res, &data) // ВАЖНО: передаем указатель &u
+	var data WeatherResponse
+    err := json.Unmarshal(res, &data) 
     if err != nil {
-        panic(err)
+        fmt.Println("Ошибка парсинга:", err)
+		return
     }
 
-    fmt.Printf("%+v\n", data) 
+	fmt.Println("Город", data.Name)
+	fmt.Println("Температура", data.Main.Temp)
+	fmt.Println("Влажность", data.Main.Humidity)
+	fmt.Println(data.Weather[0].Description)
 }
